@@ -28,14 +28,6 @@ class App extends Component {
     this.sendMessage = this.sendMessage.bind(this);
   }
 
-  scrollToBottom(){
-    const $targetContainer = $('.messages-container');
-    const $childContainer = $('.comments');
-    $targetContainer.animate({
-      scrollTop: $targetContainer.scrollTop() + $childContainer.height()
-    }, 'slow');
-  }
-
   componentDidMount(){
     fetch('./fixtures/fakedata.json')
       .then((res) => res.json())
@@ -45,6 +37,14 @@ class App extends Component {
             lastSeen: data.last_seen
         }, this.scrollToBottom);
       });
+  }
+
+  scrollToBottom(){
+    const $targetContainer = $('.messages-container');
+    const $childContainer = $('.comments');
+    $targetContainer.animate({
+      scrollTop: $targetContainer.scrollTop() + $childContainer.height()
+    }, 'slow');
   }
 
   sendMessage(){
@@ -115,7 +115,7 @@ class App extends Component {
     messages.sort(function(a, b) {
       return a.timestamp - b.timestamp;
     });
-    
+
     const messageList = [];
     let currentDate = null;
     messages.forEach(message => {

@@ -35,14 +35,15 @@ export function updateUsername(username){
 
 //get messages
 //send GET request to get messages associated with chatroom
+//implemented with LONG POLLING
 //success 200 with messages since last seen
 export function getMessages(chatroomid, lastseen){
 }
 
 //send messages
-//POST request send message to chatroom as user
+//POST request send message to chatroom as user at time
 //sucess 200
-export function sendMessage(chatroomid, username){
+export function sendMessage(chatroomid, username, timestamp){
 }
 
 //update messsages

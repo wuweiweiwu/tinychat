@@ -26,6 +26,11 @@ class Message extends Component {
     };
     $('.editor').removeClass('open');
     $(`#editor${id}`).addClass('open');
+    const $targetContainer = $('.messages-container');
+    const $childContainer = $(`#editor${id}`).parent();
+    $targetContainer.animate({
+      scrollTop: $targetContainer.scrollTop() + $childContainer.scrollTop() + $childContainer.height()
+    }, 'fast');
   }
 
   closeEditor(e){
