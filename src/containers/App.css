@@ -1,0 +1,55 @@
+#root {
+  height: 95%;
+}
+
+#image-upload {
+  display: none;
+}
+
+#header-avatar {
+  height: 60px;
+  width: 60px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.main-container {
+  height: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.header-container {
+  margin-top: 10px;
+  height: 20%;
+}
+
+.messages-container {
+  height: 70%;
+  position: relative;
+  overflow: auto;
+}
+
+.ui.comments {
+  max-width: none !important;
+}
+
+.ui.form .field {
+  margin: 0 0 2px !important;
+}
+
+.can-edit {
+  cursor: pointer;
+}
+
+.can-edit:hover {
+  background-color: #a9d1d0 !important;
+}
+
+.editor {
+  display: none;
+}
+
+.editor.open {
+  display: inline;
+}
