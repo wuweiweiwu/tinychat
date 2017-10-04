@@ -14,13 +14,6 @@ export function getPayload(page) {
   });
 }
 
-//login with Google for Facebook OAuth api
-//get the access token somewhere arond here
-//success 200
-//not authorized 403
-export function login(username) {
-}
-
 //update avatar
 //send POST request with image as payload
 //success 200

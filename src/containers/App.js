@@ -26,9 +26,20 @@ class App extends Component {
     this.updateWhoami = this.updateWhoami.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.callGetMessages = this.callGetMessages.bind(this);
   }
 
   componentDidMount(){
+    this.callGetMessages()
+  }
+
+  /**
+   * callGetMessages
+   *
+   * We will call getMessages here instead of getting the fakedata.json in a
+   * real app. When getMessages is fullfilled, another getMessage call will be called
+   */
+  callGetMessages(){
     fetch('./fixtures/fakedata.json')
       .then((res) => res.json())
       .then((data) => {
@@ -37,6 +48,7 @@ class App extends Component {
             lastSeen: data.last_seen
         }, this.scrollToBottom);
       });
+    // call callGetMessages again after setState to restart the long polling request
   }
 
   scrollToBottom(){
@@ -47,6 +59,12 @@ class App extends Component {
     }, 'slow');
   }
 
+  /**
+   * sendMessage
+   *
+   * call sendMessage here and the getMessages long polling call will update
+   * the states :)
+   */
   sendMessage(){
     this.setState(prevState => {
       if (prevState.typedMessage.length > 0){
@@ -76,6 +94,12 @@ class App extends Component {
     });
   }
 
+
+  /**
+   * updateAvatar
+   *
+   * call updateAvatar here to send the POST request with the image <avatar>
+   */
   updateAvatar(avatar){
     this.setState({
       avatar,
@@ -88,6 +112,12 @@ class App extends Component {
     }));
   }
 
+
+  /**
+   * updateWhoami
+   *
+   * call updateAvatar here to sent the POST request with the new name
+   */
   updateWhoami(whoami){
     if (!whoami) return;
     this.setState({
@@ -96,6 +126,13 @@ class App extends Component {
     });
   }
 
+
+  /**
+   * updateMessage
+   *
+   * call updateMessage here to send the POST request to update the specified message.
+   * The LONG POLLING request will be fulfilled and it will update the state.
+   */
   updateMessage(messageId, content){
     this.setState(prevState => {
       const messages = prevState.messages.map(message => {
