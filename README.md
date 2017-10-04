@@ -29,6 +29,7 @@ And you can also view the pretty markdown files there.
 
 * Avatar change: click the image at top center to change your Avatar
 * Name change: click the icon right under the Avatar to change your username
+* Link highlighting
 * Edit messages: messages that you can edit will have a small edit button (the ones that you sent)
 * "real time" updating of messages based on **HTTP long polling** requests
 * Using Semantic UI components as well as custom CSS to make the UI look pretty
