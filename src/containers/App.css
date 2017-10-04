@@ -15,8 +15,8 @@
 
 .main-container {
   height: 100%;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .header-container {
@@ -38,18 +38,19 @@
   margin: 0 0 2px !important;
 }
 
-.can-edit {
-  cursor: pointer;
-}
-
-.can-edit:hover {
-  background-color: #a9d1d0 !important;
-}
-
 .editor {
   display: none;
 }
 
 .editor.open {
   display: inline;
+}
+
+.message-input {
+  width: 80%;
+}
+
+.send-container {
+  margin-top: 5px;
+  text-align: center;
 }

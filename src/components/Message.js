@@ -18,18 +18,17 @@ class Message extends Component {
   }
 
   toggleEditor(e){
-    e.stopPropagation();
-    if (!this.props.updateMessage) return;
-    if ($(`#editor${this.props.id}`).hasClass('open')){
-      $(`#editor${this.props.id}`).removeClass('open');
+    const { updateMessage, id } = this.props;
+    if (!updateMessage) return;
+    if ($(`#editor${id}`).hasClass('open')){
+      $(`#editor${id}`).removeClass('open');
       return;
     };
     $('.editor').removeClass('open');
-    $(`#editor${this.props.id}`).addClass('open');
+    $(`#editor${id}`).addClass('open');
   }
 
   closeEditor(e){
-    e.stopPropagation();
     $('.editor').removeClass('open');
   }
 
@@ -40,8 +39,10 @@ class Message extends Component {
   }
 
   updateMessage(e){
-    if (!this.state.editText) return;
-    this.props.updateMessage(this.props.id, this.state.editText);
+    const { editText } = this.state;
+    const { updateMessage, id } = this.props;
+    if (!editText) return;
+    updateMessage(id, editText);
     this.closeEditor(e);
   }
 
@@ -50,7 +51,7 @@ class Message extends Component {
     const { updateMessage, id, avatar, date, lastEdited, content, name } = this.props;
 
     return (
-      <Comment className={updateMessage ? 'can-edit' : ''} onClick={this.toggleEditor}>
+      <Comment>
         <Comment.Avatar src={avatar} />
         <Comment.Content>
           <Comment.Author as='a'>{name}</Comment.Author>
@@ -64,8 +65,12 @@ class Message extends Component {
               {content}
             </Linkify>
           </Comment.Text>
+          {updateMessage &&
+            <Comment.Actions>
+              <Comment.Action onClick={this.toggleEditor}>Edit</Comment.Action>
+            </Comment.Actions>}
         </Comment.Content>
-        <div id={'editor'+id} className='editor' onClick={(e) => e.stopPropagation()}>
+        <div id={'editor'+id} className='editor'>
           <Form reply>
             <Form.TextArea value={editText} onChange={this.handleInputChange}/>
             <Button size='mini' content='Cancel' secondary onClick={this.closeEditor}/>

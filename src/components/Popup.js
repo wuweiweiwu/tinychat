@@ -9,6 +9,7 @@ class Popup extends Component{
       username: ''
     }
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleEnterKey = this.handleEnterKey.bind(this);
   }
 
   handleNameChange(e){
@@ -17,19 +18,32 @@ class Popup extends Component{
     });
   }
 
+  handleEnterKey(e){
+    const { username } = this.state;
+    const { updateWhoami } = this.props;
+    if (e.keyCode === 13){
+      updateWhoami(username);
+    }
+  }
+
   render(){
     const { username } = this.state;
+    const { popupOpen, togglePopup, updateWhoami } = this.props;
 
     return (
-      <Modal size='mini' open={this.props.popupOpen} onClose={this.props.togglePopup}>
+      <Modal size='mini' open={popupOpen} onClose={togglePopup}>
         <Modal.Header>
-          Change your username
+          Set your username
         </Modal.Header>
         <Modal.Content>
-          <Input placeholder='New username' value={username} onChange={this.handleNameChange}/>
+          <Input
+            placeholder='New username'
+            value={username}
+            onKeyDown={this.handleEnterKey}
+            onChange={this.handleNameChange}/>
         </Modal.Content>
         <Modal.Actions>
-          <Button negative onClick={this.props.togglePopup}>
+          <Button negative onClick={togglePopup}>
             Cancel
           </Button>
           <Button
@@ -37,7 +51,7 @@ class Popup extends Component{
             icon='checkmark'
             labelPosition='right'
             content='Save'
-            onClick={() => this.props.updateWhoami(username)}/>
+            onClick={() => updateWhoami(username)}/>
         </Modal.Actions>
       </Modal>
     );

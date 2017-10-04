@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Comment, Divider, Input } from 'semantic-ui-react';
+import { Header, Comment, Divider, Input, Button } from 'semantic-ui-react';
 import Message from '../components/Message';
 import MyHeader from '../components/MyHeader';
 import Popup from '../components/Popup';
@@ -17,7 +17,7 @@ class App extends Component {
       typedMessage: '',
       whoami: 'nobody',
       avatar: require('../assets/steve.jpg'),
-      popupOpen: false,
+      popupOpen: true,
     };
     this.handleEnterKey = this.handleEnterKey.bind(this);
     this.handleMessageChange = this.handleMessageChange.bind(this);
@@ -25,6 +25,15 @@ class App extends Component {
     this.updateMessage = this.updateMessage.bind(this);
     this.updateWhoami = this.updateWhoami.bind(this);
     this.togglePopup = this.togglePopup.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
+  }
+
+  scrollToBottom(){
+    const $targetContainer = $('.messages-container');
+    const $childContainer = $('.comments');
+    $targetContainer.animate({
+      scrollTop: $targetContainer.scrollTop() + $childContainer.height()
+    }, 'slow');
   }
 
   componentDidMount(){
@@ -34,32 +43,30 @@ class App extends Component {
         this.setState({
             messages: data.messages,
             lastSeen: data.last_seen
-        });
+        }, this.scrollToBottom);
       });
+  }
+
+  sendMessage(){
+    this.setState(prevState => {
+      if (prevState.typedMessage.length > 0){
+        const newMessage = {
+          id : prevState.messages.length + 1,
+          author: prevState.whoami,
+          content: prevState.typedMessage,
+          timestamp: new Date().getTime()
+        }
+        return {
+          messages: [...prevState.messages, newMessage],
+          typedMessage: ''
+        };
+      }
+    }, this.scrollToBottom);
   }
 
   handleEnterKey(e){
     if (e.keyCode === 13){
-      this.setState(prevState => {
-        if (prevState.typedMessage.length > 0){
-          const newMessage = {
-            id : prevState.messages.length + 1,
-            author: prevState.whoami,
-            content: prevState.typedMessage,
-            timestamp: new Date().getTime()
-          }
-          return {
-            messages: [...prevState.messages, newMessage],
-            typedMessage: ''
-          };
-        }
-      }, () => {
-        const $targetContainer = $('.messages-container');
-        const $childContainer = $('.comments');
-        $targetContainer.animate({
-          scrollTop: $targetContainer.scrollTop() + $childContainer.height()
-        }, 'slow');
-      });
+      this.sendMessage();
     }
   }
 
@@ -108,6 +115,7 @@ class App extends Component {
     messages.sort(function(a, b) {
       return a.timestamp - b.timestamp;
     });
+    
     const messageList = [];
     let currentDate = null;
     messages.forEach(message => {
@@ -146,13 +154,16 @@ class App extends Component {
             {messageList}
           </Comment.Group>
         </div>
-        <Input
-          fluid
-          icon='send'
-          placeholder='Send Message'
-          onChange={this.handleMessageChange}
-          onKeyDown={this.handleEnterKey}
-          value={typedMessage}/>
+        <div className='send-container'>
+          <Input
+            className='message-input'
+            icon='send'
+            placeholder='Send Message'
+            onChange={this.handleMessageChange}
+            onKeyDown={this.handleEnterKey}
+            value={typedMessage}/>
+          <Button onClick={this.sendMessage}>Send</Button>
+        </div>
         <Popup
           popupOpen={popupOpen}
           updateWhoami={this.updateWhoami}
