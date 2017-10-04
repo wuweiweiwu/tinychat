@@ -2,6 +2,7 @@
   "name": "my-tiny-chat",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://hungweiwu.github.io/TinyChat",
   "dependencies": {
     "jquery": "^3.2.1",
     "linkifyjs": "^2.1.5",
