@@ -1,49 +1,53 @@
 # README
 
-Hello!
+This was really fun! I tried to make it as aesthetically pleasing as possible. A combination of pretty and functional components. And I also tried to organize it as best as I can for extensibility :) Its also done in React.js using Semantic UI components.
 
-As the next step in the AeroFS recruiting process, we'd like you to do a
-take-home development exercise. This exercise should take no longer than a
-couple hours for the basic requirements.
+Skeleton created using create-react-app.
 
-Please send us back your results within the next two weeks--if you've got
-travel or something else coming up and this timetable doesn't work for you,
-just let us know and we'll push that back further.
+Its also deployed as a static site on my website. http://theweiweiwu.com/TinyChat
 
-Good luck, and we hope you have fun with this!
+The git repo is at https://github.com/hungweiwu/TinyChat.
+
+And you can also view the pretty markdown files there.
 
 ## What files live where
 
 * `frontend_design_spec.md` has a copy of the information/requirements for this
   exercise.
-* `backend_design_spec.md` should contain the spec for what you want the
-  backend developer to build so that your frontend demo app would actually work
-  someday. Once you have your app more or less working, you'll need to write
-  this.
-* `index.html` is your main HTML page. 
-* Your JS code goes in `/j`s. There's an app.js file in there already to get
-  you started. Any libraries you use as dependencies can go in `/libs` (if not
-  linked via a CDN). Your index.html file already includes Twitter Bootstrap
-  and JQuery, to start.
-* Your stylesheets go in `/style`s. There's a `style.cs`s file in there already
-  to get you started. If you'd like to use a CSS preprocessor like SCSS or
-  LESS, great! Make sure to include the original SCSS/LESS file(s), not just
-  compiled CSS, when you send your code back so we can see them.
-* `/fixtures` contains a fake data file, `fakedata.json`, to help you get
-  started.
+* `backend_design_spec.md` contains all the specs for  the backend for this app.
+* `public/index.html` is the main HTML page.
+* Your JS code goes in `src` directory.
+  * `containers` directory contains stateful components. This is where you will call functions defined in `src/api.js` to call the backend api.
+  * `components` directory contains presentational components. They only have presentational states and all other stuff is passed as props.
+  * `utils` directory contains utility functions such as date formatter.
+  * `assets` directory contains pictures or whatever you're going to need in the website.
+  * `api.js` this file specifies the skeleton functions to call the backend RESTful api. When it grows we can put it into an `api` directory and split up functions.
+  * `index.js` actually renders the React on `index.html`.
+* `public/fixtures` contains the fake data file, `fakedata.json`.
 
-If you'd rather organize your code differently, go for it. Just update this
-README file accordingly.
+## Features
 
-## Viewing the app for development
+* Avatar change: click the image at top center to change your Avatar
+* Name change: click the icon right under the Avatar to change your username
+* Edit messages: messages that you can edit will have a small edit button (the ones that you sent)
+* "real time" updating of messages based on **HTTP long polling** requests
+* Using Semantic UI components as well as custom CSS to make the UI look pretty
+* Where I would call the RESTFul api is commented in the code :).
 
-If your computer has Python installed, an easy way to get this frontend-only
-app up and running is to cd into this directory in your terminal window, then
-run:
 
-    python -m SimpleHTTPServer 8080
+## Viewing the app
 
-This will start a basic web server serving the contents of this directory on
-your machine. You can then see index.html at localhost:8080.
+Run development server using
 
-If you'd rather serve your app for development in a different way, go for it.
+```
+npm install
+npm start
+```
+
+Run production build and deply to gh pages
+
+```
+npm install
+npm run build
+npm run deploy
+```
