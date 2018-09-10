@@ -4,9 +4,9 @@ This was really fun! I tried to make it as aesthetically pleasing as possible. A
 
 Skeleton created using create-react-app.
 
-Its also deployed as a static site on my website. http://theweiweiwu.com/TinyChat
+Its also deployed as a static site on my website. http://weiweiwu.me/TinyChat
 
-The git repo is at https://github.com/hungweiwu/TinyChat.
+The git repo is at https://github.com/wuweiweiwu/TinyChat.
 
 And you can also view the pretty markdown files there.
 
